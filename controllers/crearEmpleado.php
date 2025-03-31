@@ -8,7 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     //Obtener los datos de formulario
     
+    if( !filter_var($_POST['correoEmp'],FILTER_VALIDATE_EMAIL) ||
+    !filter_var($_POST['salarioBaseEmp'],FILTER_VALIDATE_INT)||
+    !filter_var($_POST['telefonoEmp'],FILTER_VALIDATE_INT)||
+    !filter_var($_POST['nroDocumentoEmp'],FILTER_VALIDATE_INT)){
+    echo 'algunos datos fueron enviado en el  formato incorrecto';
+    header("refresh:3;url=../views/crearEmpleado.php");
     
+}
+
     $nombre = $_POST['nombreEmp'];
     $documento = $_POST['nroDocumentoEmp'];
     $cargo = $_POST['cargoEmp'];
@@ -17,6 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $salario = $_POST['salarioBaseEmp'];
     $correo = $_POST['correoEmp'];
     $telefono = $_POST['telefonoEmp'];
+
+    $nombre = filter_var($nombre ,FILTER_SANITIZE_STRING);
+    
     
     if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
     

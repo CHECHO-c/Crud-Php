@@ -68,4 +68,5 @@ require_once '../models/MySQL.php';
 </html>
 <?php else:?>
     <h1>No Existen empleados.</h1>
+    <a href="crearEmpleado.php" ><button>Crear Empleado</button></a>
 <?php endif ?>

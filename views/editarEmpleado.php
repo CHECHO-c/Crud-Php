@@ -7,7 +7,11 @@ if(!isset($_GET['id'])){
     exit();
 }
 
-$id = $_GET['id'];
+
+
+
+    $id = $_GET['id'];
+
 
 $mysql= new MySQL();
 $mysql->conectar();
@@ -20,6 +24,9 @@ $mysql->desconectar();
 if(!$resultado){
     echo "Error en la consulta";
 }
+
+
+
 
 
 
@@ -97,7 +104,7 @@ if(!$resultado){
         <br>
         <br>
         <label for="">Fecha de ingreso</label>
-        <input type="date" name="fechaIngresoEmp" value="<?php echo $empleado['fecha_ingreso'] ?>">
+        <input type="date" name="fechaIngresoEmp" required value="<?php echo $empleado['fecha_ingreso'] ?>">
             <br>
             <br>
         
