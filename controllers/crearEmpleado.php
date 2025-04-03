@@ -6,6 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $mysql->conectar();
     
+
     //Obtener los datos de formulario
     
     if( !filter_var($_POST['correoEmp'],FILTER_VALIDATE_EMAIL) ||
@@ -16,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("refresh:3;url=../views/crearEmpleado.php");
     
 }
-
+else{
     $nombre = $_POST['nombreEmp'];
     $documento = $_POST['nroDocumentoEmp'];
     $cargo = $_POST['cargoEmp'];
@@ -28,25 +29,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $nombre = filter_var($nombre ,FILTER_SANITIZE_STRING);
     
+    //  $cargo = $cargo =="Tecnico"? 1 : $cargo =="Administrador"? 2 : $cargo =="Operario"? 3: 4;
+    //  $areaDep = $areaDep =="Electricidad"? 1 : $areaDep =="Mantenimiento"? 2 : $areaDep =="Recursos Humanos"? 3 : 4;
+
+    if($mysql->verificarCorreo($correo)){
+        if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
     
-    if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
     
-    
-        $consulta = "INSERT INTO empleados (nombre, numero_documento, cargo, area_departamento, fecha_ingreso, salario_base, estado, correo_electronico, telefono)
-        VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono');";
-    
-        $mysql->ejecutarConsulta($consulta);
-    
-        $mysql->desconectar();
-    
-        echo "<h1>Empleado Registrado con exito</h1> <br> <br>";
-    
-        header("refresh:3;url=../views/dashboard.php");
+            $consulta = "INSERT INTO empleados (nombre, numero_documento, id_cargo, id_area_departamento, fecha_ingreso, salario_base, estado, correo_electronico, telefono)
+            VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono');";
+        
+            $mysql->ejecutarConsulta($consulta);
+        
+            $mysql->desconectar();
+        
+            echo "<h1>Empleado Registrado con exito</h1> <br> <br>";
+        
+            header("refresh:3;url=../views/dashboard.php");
+        
+        
+        }
+        else{
+            echo "<h1>Algunos datos fueron enviados vacios </h1>";
+        }
     }
     else{
-        echo "<h1>Algunos datos fueron enviados vacios </h1>";
+        echo "<h1>ESTE CORREO YA ESTA EN USO";
+        header("refresh:3;url=../views/crearEmpleado.php");
     }
+
     
+    
+}
+
+
+ 
+   
 }
 else{
  echo "Sin hackear papi";       

@@ -4,7 +4,10 @@ require_once '../models/MySQL.php';
    $mysql = new MySQL();
    $mysql->conectar();
 
-   $resultado = $mysql->ejecutarConsulta("SELECT * FROM empleados");
+    $resultado = $mysql->ejecutarConsulta("SELECT id,nombre,numero_documento,fecha_ingreso,salario_base,estado,correo_electronico,telefono,cargo.nombre_cargo,area_departamento.nombre_area_departamento
+    FROM empleados
+    JOIN cargo on cargo.id_cargo=empleados.id_cargo 
+    JOIN area_departamento on area_departamento.id_area_departamento=empleados.id_area_departamento;");
 
    $mysql->desconectar();    
 
@@ -45,8 +48,8 @@ require_once '../models/MySQL.php';
                 <td><?php echo $datoEmpleado['id']; ?></td>
                 <td><?php echo $datoEmpleado['nombre']; ?></td>
                 <td><?php echo $datoEmpleado['numero_documento']; ?></td>
-                <td><?php echo $datoEmpleado['cargo']; ?></td>
-                <td><?php echo $datoEmpleado['area_departamento']; ?></td>
+                <td><?php echo $datoEmpleado['nombre_cargo']; ?></td>
+                <td><?php echo $datoEmpleado['nombre_area_departamento']; ?></td>
                 <td><?php echo $datoEmpleado['fecha_ingreso']; ?></td>
                 <td><?php echo $datoEmpleado['salario_base']; ?></td>
                 <td><?php echo $datoEmpleado['correo_electronico']; ?></td>

@@ -51,7 +51,19 @@ class MySQL{
         return $resultado;
     }
 
+    public function verificarCorreo($correo){
+        $mysql = new MySQL();
+        $mysql->conectar();
+        $consulta = "SELECT * FROM empleados where correo_electronico='$correo'";
+        $resultado = $mysql->ejecutarConsulta($consulta);
 
+        if($resultado->num_rows>0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
 }
 

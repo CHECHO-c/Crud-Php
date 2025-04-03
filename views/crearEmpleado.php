@@ -20,26 +20,26 @@
 
         <label for="">Cargo</label>
         <select name="cargoEmp" required>
-            <option value="Tecnico">Tecnico</option>
-            <option value="Administrador">Administrador</option>
-            <option value="Operario">Operario</option>
-            <option value="Asistente">Asistente</option>
+            <option value="1">Tecnico</option>
+            <option value="2">Administrador</option>
+            <option value="3">Operario</option>
+            <option value="4">Asistente</option>
         </select>
         <br><br>
 
         <fieldset>
             <legend>Area o departamento</legend>
 
-            <input type="radio" value="Electricidad" name="areaEmp" required>
+            <input type="radio" value="1" name="areaEmp" required>
             <label for="">Electricidad</label>
 
-            <input type="radio" value="Mantenimiento" name="areaEmp">
+            <input type="radio" value="2" name="areaEmp">
             <label for="">Mantenimiento</label>
 
-            <input type="radio" value="Recursos Humanos" name="areaEmp">
+            <input type="radio" value="3" name="areaEmp">
             <label for="">Recursos Humanos</label>
 
-            <input type="radio" value="Contabilidad" name="areaEmp">
+            <input type="radio" value="4" name="areaEmp">
             <label for="">Contabilidad</label>
 
 
