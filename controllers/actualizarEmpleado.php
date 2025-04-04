@@ -26,8 +26,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $estado = $_POST['estadoEmp'];
         $telefono = $_POST['telefonoEmp'];
         
-        if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
-            $consulta = "UPDATE empleados set nombre='$nombre',numero_documento = '$documento',cargos_id='$cargo',area_departamento_id='$areaDep',fecha_ingreso='$fechaIngreso',salario_base=$salario,estado=$estado,correo_electronico='$correo',telefono='$telefono' where id=$id; ";
+
+        //Archivo de la imagen
+        $imagen = $_FILES['imgEmp'];
+        $nombreImagen = $imagen["name"];
+        $tempImagen = $imagen["tmp_name"];
+        $rutaCarpeta = "../imagenes_usuarios/". $nombreImagen;
+
+        if(move_uploaded_file($tempImagen,$rutaCarpeta)){
+
+        }
+        else
+        {
+            echo "Error en la imagen";
+        }
+        
+        if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono) && !empty($nombreImagen)  ) {
+            $consulta = "UPDATE empleados set nombre='$nombre',numero_documento = '$documento',cargos_id='$cargo',area_departamento_id='$areaDep',fecha_ingreso='$fechaIngreso',salario_base=$salario,estado=$estado,correo_electronico='$correo',telefono='$telefono',imagen='$rutaCarpeta' where id=$id; ";
         
             $mysql->ejecutarConsulta($consulta);
             

@@ -50,7 +50,7 @@ if(!$resultado){
 <body>
 
 <h1>Actualizar datos del empleado </h1>
-    <form action="../controllers/actualizarEmpleado.php" method="POST">
+    <form action="../controllers/actualizarEmpleado.php" method="POST" enctype="multipart/form-data">
     
         <input type="hidden" name="idEmp" id="idEmp" readonly required value="<?php echo $empleado['id']; ?>">
         
@@ -148,6 +148,11 @@ if(!$resultado){
 
 
         </fieldset>
+        <br>
+        <br>
+        <label for="">Imagen</label>
+        <input type="file" name="imgEmp"  accept="image/png, image/jpeg, /image/jpg" required>
+        <br>
         <br>
         <button type="submit">Actualizar Empledo</button>
 

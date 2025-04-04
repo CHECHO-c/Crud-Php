@@ -4,7 +4,7 @@ require_once '../models/MySQL.php';
    $mysql = new MySQL();
    $mysql->conectar();
 
-    $resultado = $mysql->ejecutarConsulta("SELECT id,nombre,numero_documento,fecha_ingreso,salario_base,estado,correo_electronico,telefono,cargos.nombre_cargo,area_departamento.nombre_area
+    $resultado = $mysql->ejecutarConsulta("SELECT id,nombre,numero_documento,fecha_ingreso,salario_base,estado,correo_electronico,telefono,cargos.nombre_cargo,area_departamento.nombre_area,imagen
     FROM empleados
     JOIN cargos on cargos.id_cargo=empleados.cargos_id
     JOIN area_departamento on area_departamento.id_area=empleados.area_departamento_id;");
@@ -40,6 +40,7 @@ require_once '../models/MySQL.php';
             <th>Correo</th>
             <th>Telefono</th>
             <th>Estado</th>
+            <th>Imagen</th>
             <th>Acciones</th>
         </tr>
         <!-- Aca vamos agregar los datos hacinedoles un mysql fetch de la consulta -->
@@ -55,6 +56,7 @@ require_once '../models/MySQL.php';
                 <td><?php echo $datoEmpleado['correo_electronico']; ?></td>
                 <td><?php echo $datoEmpleado['telefono']; ?></td>
                 <td><?php echo $datoEmpleado['estado']==0? "Inactivo" : "Activo"; ?></td>
+                <td><img src="<?php echo $datoEmpleado['imagen']; ?>" alt="" width="80px"></td>
                 <td>
                 <a href="../views/editarEmpleado.php?id=<?php echo $datoEmpleado['id']; ?>" onclick="return confirm('Esta esguro que desea \n editar a <?php echo $datoEmpleado['nombre']; ?>? ');" ><button>Editar Empleado</button></a>
                 <a href="../controllers/eliminarEmpleado.php?id=<?php echo $datoEmpleado['id']; ?>" onclick="return confirm('Esta esguro que desea \n eliminar a <?php echo $datoEmpleado['nombre']; ?>? ');" ><button>Eliminar Empleado</button></a>

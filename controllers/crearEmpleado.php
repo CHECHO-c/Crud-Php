@@ -26,25 +26,41 @@ else{
     $salario = $_POST['salarioBaseEmp'];
     $correo = $_POST['correoEmp'];
     $telefono = $_POST['telefonoEmp'];
+   
+
+    //Guardar archivo en la otra carpeta
+    $archivoImagen = $_FILES['imgEmp'];
+
+    $nombreImagen = $archivoImagen["name"];
+    $temporalImagen = $archivoImagen["tmp_name"];
+    $rutaCarpeta = "../imagenes_usuarios/".$nombreImagen;
+
+    if(move_uploaded_file($temporalImagen,$rutaCarpeta)){
+
+    }
+    else{
+        echo "Imagen no subida a la carpeta";
+        exit();
+    }
 
     
     
 
 
     if($mysql->verificarCorreo($correo) && $mysql->verificarDocumento($documento)){
-        if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
+        if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono) && !empty($nombreImagen)  ) {
     
-    
-            $consulta = "INSERT INTO empleados (nombre, numero_documento, cargos_id, area_departamento_id, fecha_ingreso, salario_base, estado, correo_electronico, telefono)
-            VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono');";
+            
+             $consulta = "INSERT INTO empleados (nombre, numero_documento, cargos_id, area_departamento_id, fecha_ingreso, salario_base, estado, correo_electronico, telefono,imagen)
+             VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono','$rutaCarpeta');";
         
-            $mysql->ejecutarConsulta($consulta);
+             $mysql->ejecutarConsulta($consulta);
         
-            $mysql->desconectar();
+             $mysql->desconectar();
         
-            echo "<h1>Empleado Registrado con exito</h1> <br> <br>";
+             echo "<h1>Empleado Registrado con exito</h1> <br> <br>";
         
-            header("refresh:3;url=../views/dashboard.php");
+             header("refresh:3;url=../views/dashboard.php");
         
         
         }

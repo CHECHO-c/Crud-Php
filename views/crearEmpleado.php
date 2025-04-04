@@ -23,7 +23,7 @@ $mysql->desconectar();
 </head>
 
 <body>
-    <form action="../controllers/crearEmpleado.php" method="POST">
+    <form action="../controllers/crearEmpleado.php" method="POST" enctype="multipart/form-data">
         <label for="">Nombre completo</label>
         <input type="text" name="nombreEmp" required>
         <br><br>
@@ -77,6 +77,10 @@ $mysql->desconectar();
         <br>
         <label for="">Telefono</label>
         <input type="number" name="telefonoEmp" required>
+        <br>
+        <br>
+        <label for="">Imagen</label>
+        <input type="file" name="imgEmp" accept="image/png, image/jpeg, /image/jpg" required>
         <br>
         <br>
         <button type="submit">Agregar Empledo</button>
