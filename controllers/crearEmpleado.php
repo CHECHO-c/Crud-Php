@@ -31,7 +31,7 @@ else{
     
 
 
-    if($mysql->verificarCorreo($correo)){
+    if($mysql->verificarCorreo($correo) && $mysql->verificarDocumento($documento)){
         if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
     
     
@@ -53,7 +53,7 @@ else{
         }
     }
     else{
-        echo "<h1>ESTE CORREO YA ESTA EN USO";
+        echo "<h1>ESTE CORREO O EL NUMERO DE DOCUMENTO YA ESTAN EN USO";
         header("refresh:3;url=../views/crearEmpleado.php");
     }
 

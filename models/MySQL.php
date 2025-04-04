@@ -15,6 +15,7 @@ class MySQL{
 
     //Esta funcion conecta a la base de datos
     public function conectar(){
+        
         $this->conexion = mysqli_connect($this->ipServidor,$this->usuarioBase,$this->contrasena,$this->nombreBaseDatos);
 
         //Validad errores en la conexion
@@ -55,6 +56,20 @@ class MySQL{
         $mysql = new MySQL();
         $mysql->conectar();
         $consulta = "SELECT * FROM empleados where correo_electronico='$correo'";
+        $resultado = $mysql->ejecutarConsulta($consulta);
+
+        if($resultado->num_rows>0){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+    public function verificarDocumento($nroDocumento){
+        $mysql = new MySQL();
+        $mysql->conectar();
+        $consulta = "SELECT * FROM empleados where numero_documento='$nroDocumento'";
         $resultado = $mysql->ejecutarConsulta($consulta);
 
         if($resultado->num_rows>0){

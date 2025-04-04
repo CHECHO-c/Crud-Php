@@ -1,4 +1,18 @@
+<?php 
+require_once '../models/MySQL.php';
+$mysql = new MySQL();
 
+$consultaCargos = "SELECT * FROM cargos;";
+$consultaAreas = "SELECT * FROM area_departamento;";
+
+$mysql->conectar();
+
+$resultadoCargos= $mysql->ejecutarConsulta($consultaCargos);
+$resultadoAreas= $mysql->ejecutarConsulta($consultaAreas);
+
+$mysql->desconectar();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,29 +34,27 @@
 
         <label for="">Cargo</label>
         <select name="cargoEmp" required>
-            <option value="1">Tecnico</option>
-            <option value="2">Administrador</option>
-            <option value="3">Operario</option>
-            <option value="4">Asistente</option>
+            <?php
+            $valorOpcion = 1;
+             while($datosCargos = mysqli_fetch_assoc($resultadoCargos)){
+            echo "<option value=$valorOpcion>".$datosCargos["nombre_cargo"]."</option> \n";
+            $valorOpcion++;
+            }
+            ?>
         </select>
         <br><br>
 
         <fieldset>
             <legend>Area o departamento</legend>
-
-            <input type="radio" value="1" name="areaEmp" required>
-            <label for="">Electricidad</label>
-
-            <input type="radio" value="2" name="areaEmp">
-            <label for="">Mantenimiento</label>
-
-            <input type="radio" value="3" name="areaEmp">
-            <label for="">Recursos Humanos</label>
-
-            <input type="radio" value="4" name="areaEmp">
-            <label for="">Contabilidad</label>
-
-
+            <?php 
+            $valorRadio = 1;
+            while($datosAreas=mysqli_fetch_assoc($resultadoAreas)){
+                echo "<input type=radio value=$valorRadio name=areaEmp required >
+            <label>".$datosAreas["nombre_area"]."</label> \n";
+            $valorRadio++;
+            }
+            
+            ?>
 
 
         </fieldset>

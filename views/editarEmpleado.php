@@ -16,6 +16,10 @@ if(!isset($_GET['id'])){
 $mysql= new MySQL();
 $mysql->conectar();
 
+$consultaCargos = "SELECT * FROM cargos;";
+$consultaAreas = "SELECT * FROM area_departamento;";
+$resultadoCargos= $mysql->ejecutarConsulta($consultaCargos);
+$resultadoAreas= $mysql->ejecutarConsulta($consultaAreas);
 $resultado = $mysql->ejecutarConsulta("SELECT * FROM empleados WHERE id=$id");
 
 $empleado = mysqli_fetch_assoc($resultado);
@@ -67,35 +71,40 @@ if(!$resultado){
         <label for="">Cargo</label>
         <select name="cargoEmp">
             <?php 
-            $cargos = ["Tecnico","Administrador","Asistente","Operario"];
-            foreach($cargos as $cargo){
-                if($empleado["cargo"]===$cargo){
-                    echo "<option value=\"$cargo\" selected>$cargo</option> ";
+                echo $empleado['cargos_id'];
+                 $valorOpcion = 1;
+                 while($datosCargos = mysqli_fetch_assoc($resultadoCargos)){
+                    if($empleado["cargos_id"]===$datosCargos["id_cargo"]){
+                        echo "<option value=$valorOpcion selected> ".$datosCargos["nombre_cargo"]."</option> \n";
+                    }
+                    else{
+                        echo "<option value=$valorOpcion>".$datosCargos["nombre_cargo"]."</option> \n";
+                    }
+                
+                $valorOpcion++;
                 }
-                else{
-                    echo "<option value=\"$cargo\" >$cargo</option> ";
-                }
-            }
-            
-
             ?>
         </select>
         <br><br>
 
         <fieldset>
             <legend>Area o departamento</legend>
-
-            <input type="radio" value="Electricidad" name="areaEmp"  <?php echo  $empleado["area_departamento"]==="Electricidad"? 'checked' : '';  ?>>
-            <label for="">Electricidad</label>
-
-            <input type="radio" value="Mantenimiento" name="areaEmp" <?php echo  $empleado["area_departamento"]==="Mantenimiento"? 'checked' : '';  ?>>
-            <label for="">Mantenimiento</label>
-
-            <input type="radio" value="Recursos Humanos" name="areaEmp" <?php echo  $empleado["area_departamento"]==="Recursos Humanos"? 'checked' : '';  ?>>
-            <label for="">Recursos Humanos</label>
-
-            <input type="radio" value="Contabilidad" name="areaEmp" <?php echo  $empleado["area_departamento"]==="Contabilidad"? 'checked' : '';  ?>>
-            <label for="">Contabilidad</label>
+            <?php 
+            $valorRadio = 1;
+            while($datosAreas=mysqli_fetch_assoc($resultadoAreas)){
+                if($empleado["cargos_id"]===$datosAreas["id_area"]){
+                    echo "<input type=radio value=$valorRadio name=areaEmp required checked >
+                    <label>".$datosAreas["nombre_area"]."</label> \n";
+                }
+                else{
+                    echo "<input type=radio value=$valorRadio name=areaEmp required >
+                    <label>".$datosAreas["nombre_area"]."</label> \n";
+                }
+            $valorRadio++;
+            }
+            
+            ?>
+            
 
 
 

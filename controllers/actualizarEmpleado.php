@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $telefono = $_POST['telefonoEmp'];
         
         if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
-            $consulta = "UPDATE empleados set nombre='$nombre',numero_documento = '$documento',cargo='$cargo',area_departamento='$areaDep',fecha_ingreso='$fechaIngreso',salario_base=$salario,estado=$estado,correo_electronico='$correo',telefono='$telefono' where id=$id; ";
+            $consulta = "UPDATE empleados set nombre='$nombre',numero_documento = '$documento',cargos_id='$cargo',area_departamento_id='$areaDep',fecha_ingreso='$fechaIngreso',salario_base=$salario,estado=$estado,correo_electronico='$correo',telefono='$telefono' where id=$id; ";
         
             $mysql->ejecutarConsulta($consulta);
             
