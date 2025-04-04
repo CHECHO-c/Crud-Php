@@ -27,16 +27,15 @@ else{
     $correo = $_POST['correoEmp'];
     $telefono = $_POST['telefonoEmp'];
 
-    $nombre = filter_var($nombre ,FILTER_SANITIZE_STRING);
     
-    //  $cargo = $cargo =="Tecnico"? 1 : $cargo =="Administrador"? 2 : $cargo =="Operario"? 3: 4;
-    //  $areaDep = $areaDep =="Electricidad"? 1 : $areaDep =="Mantenimiento"? 2 : $areaDep =="Recursos Humanos"? 3 : 4;
+    
+
 
     if($mysql->verificarCorreo($correo)){
         if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono)  ) {
     
     
-            $consulta = "INSERT INTO empleados (nombre, numero_documento, id_cargo, id_area_departamento, fecha_ingreso, salario_base, estado, correo_electronico, telefono)
+            $consulta = "INSERT INTO empleados (nombre, numero_documento, cargos_id, area_departamento_id, fecha_ingreso, salario_base, estado, correo_electronico, telefono)
             VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono');";
         
             $mysql->ejecutarConsulta($consulta);
