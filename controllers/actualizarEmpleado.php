@@ -15,47 +15,70 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
     }
     else{
-        $id = $_POST['idEmp'];
-        $nombre = $_POST['nombreEmp'];
-        $documento = $_POST['nroDocumentoEmp'];
-        $cargo = $_POST['cargoEmp'];
-        $areaDep = $_POST['areaEmp'];
-        $fechaIngreso = $_POST['fechaIngresoEmp'];
-        $salario = $_POST['salarioBaseEmp'];
-        $correo = $_POST['correoEmp'];
-        $estado = $_POST['estadoEmp'];
-        $telefono = $_POST['telefonoEmp'];
+        $id = $_POST['idEmp']?? "";
+        $nombre = $_POST['nombreEmp']?? "";
+        $documento = $_POST['nroDocumentoEmp']?? "";
+        $cargo = $_POST['cargoEmp']?? "";
+        $areaDep = $_POST['areaEmp']?? "";
+        $fechaIngreso = $_POST['fechaIngresoEmp']?? "";
+        $salario = $_POST['salarioBaseEmp']?? "";
+        $correo = $_POST['correoEmp']?? "";
+        $estado = $_POST['estadoEmp']?? "";
+        $telefono = $_POST['telefonoEmp']?? "";
         
 
         //Archivo de la imagen
         $imagen = $_FILES['imgEmp'];
         $nombreImagen = $imagen["name"];
         $tempImagen = $imagen["tmp_name"];
+        $tipoImagen = $imagen["type"];
         $rutaCarpeta = "../imagenes_usuarios/". $nombreImagen;
 
-        if(move_uploaded_file($tempImagen,$rutaCarpeta)){
+        
 
-        }
-        else
-        {
-            echo "Error en la imagen";
-        }
-        
-        if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono) && !empty($nombreImagen)  ) {
-            $consulta = "UPDATE empleados set nombre='$nombre',numero_documento = '$documento',cargos_id='$cargo',area_departamento_id='$areaDep',fecha_ingreso='$fechaIngreso',salario_base=$salario,estado=$estado,correo_electronico='$correo',telefono='$telefono',imagen='$rutaCarpeta' where id=$id; ";
-        
-            $mysql->ejecutarConsulta($consulta);
+        if($tipoImagen!="image/png" && $tipoImagen != "image/jpg" && $tipoImagen != "image/jpeg"){
+            if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono) && !empty($nombreImagen)  ) {
+                $consulta = "UPDATE empleados set nombre='$nombre',numero_documento = '$documento',cargos_id='$cargo',area_departamento_id='$areaDep',fecha_ingreso='$fechaIngreso',salario_base=$salario,estado=$estado,correo_electronico='$correo',telefono='$telefono',imagen=null where id=$id; ";
             
-            $mysql->desconectar();      
-            if($consulta){
-                echo " <h1> EDITADO CON EXITO </h1>";
+                $mysql->ejecutarConsulta($consulta);
+                
+                $mysql->desconectar();      
+                if($consulta){
+                    echo " <h1> EDITADO CON EXITO </h1>";
+                }
+                
+                header("refresh:3;url=../views/dashboard.php");
             }
-            
-            header("refresh:3;url=../views/dashboard.php");
+            else{
+                echo "<h1>Algunos datos fueron enviados vacios </h1>";
+            }
         }
         else{
-            echo "<h1>Algunos datos fueron enviados vacios </h1>";
+            if (!empty($nombre) && !empty($documento) && !empty($cargo)  && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono) && !empty($nombreImagen)  ) {
+                $consulta = "UPDATE empleados set nombre='$nombre',numero_documento = '$documento',cargos_id='$cargo',area_departamento_id='$areaDep',fecha_ingreso='$fechaIngreso',salario_base=$salario,estado=$estado,correo_electronico='$correo',telefono='$telefono',imagen='$rutaCarpeta' where id=$id; ";
+            
+                $mysql->ejecutarConsulta($consulta);
+                
+                $mysql->desconectar();      
+                if($consulta){
+                    echo " <h1> EDITADO CON EXITO </h1>";
+                }
+                if(move_uploaded_file($tempImagen,$rutaCarpeta)){
+
+                }
+                else
+                {
+                    echo "Error en la imagen";
+                }
+                
+                header("refresh:3;url=../views/dashboard.php");
+            }
+            else{
+                echo "<h1>Algunos datos fueron enviados vacios </h1>";
+            }
         }
+        
+        
     }
 
    

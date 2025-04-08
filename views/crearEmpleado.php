@@ -28,8 +28,12 @@ $mysql->desconectar();
         <input type="text" name="nombreEmp" required>
         <br><br>
 
-        <label for="">Numero de documento</label required>
-        <input type="number" name="nroDocumentoEmp">
+        <label for="">Numero de documento</label >
+        <input type="number" name="nroDocumentoEmp"required>
+        <br><br>
+
+        <label for="">Contraseña</label >
+        <input type="password" name="contraseña Emp" required>
         <br><br>
 
         <label for="">Cargo</label>
@@ -80,7 +84,7 @@ $mysql->desconectar();
         <br>
         <br>
         <label for="">Imagen</label>
-        <input type="file" name="imgEmp" accept="image/png, image/jpeg, /image/jpg" required>
+        <input type="file" name="imgEmp" accept=" .png, .jpeg, .jpg" required>
         <br>
         <br>
         <button type="submit">Agregar Empledo</button>
