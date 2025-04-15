@@ -30,7 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $salario = $_POST['salarioBaseEmp'] ?? "";
         $correo = $_POST['correoEmp'] ?? "";
         $telefono = $_POST['telefonoEmp'] ?? "";
+        $contraseña = $_POST['contraseñaEmp'] ?? "";
 
+
+        //Encryptar contraseña
+        $hash = password_hash($contraseña,PASSWORD_DEFAULT);
+        
 
         //Guardar archivo en la otra carpeta
         $archivoImagen = $_FILES['imgEmp'];
@@ -49,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!empty($nombre) && !empty($documento) && !empty($cargo) && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono) && !empty($nombreImagen)) {
 
 
-                    $consulta = "INSERT INTO empleados (nombre, numero_documento, cargos_id, area_departamento_id, fecha_ingreso, salario_base, estado, correo_electronico, telefono,imagen)
-                     VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono',null);";
+                    $consulta = "INSERT INTO empleados (nombre, numero_documento, cargos_id, area_departamento_id, fecha_ingreso, salario_base, estado, correo_electronico, telefono,imagen,contrasena)
+                     VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono',null,'$hash');";
 
                     $mysql->ejecutarConsulta($consulta);
 
@@ -80,8 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if (!empty($nombre) && !empty($documento) && !empty($cargo) && !empty($areaDep) && !empty($fechaIngreso) && !empty($salario) && !empty($correo) && !empty($telefono) && !empty($nombreImagen)) {
 
 
-                    $consulta = "INSERT INTO empleados (nombre, numero_documento, cargos_id, area_departamento_id, fecha_ingreso, salario_base, estado, correo_electronico, telefono,imagen)
-                 VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono','$rutaCarpeta');";
+                    $consulta = "INSERT INTO empleados (nombre, numero_documento, cargos_id, area_departamento_id, fecha_ingreso, salario_base, estado, correo_electronico, telefono,imagen,contrasena)
+                 VALUES ('$nombre','$documento','$cargo','$areaDep','$fechaIngreso',$salario,1,'$correo','$telefono','$rutaCarpeta','$hash');";
 
                     $mysql->ejecutarConsulta($consulta);
 

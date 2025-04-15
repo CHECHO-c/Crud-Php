@@ -33,7 +33,7 @@ $mysql->desconectar();
         <br><br>
 
         <label for="">Contraseña</label >
-        <input type="password" name="contraseña Emp" required>
+        <input type="password" name="contraseñaEmp" required>
         <br><br>
 
         <label for="">Cargo</label>
