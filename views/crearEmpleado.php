@@ -1,4 +1,12 @@
 <?php 
+
+    session_start();
+    if(!isset($_SESSION['id'])){
+        header("Location:../views/login.php");
+        $_SESSION["error"]="No has iniciado sesion";
+    }
+
+
 require_once '../models/MySQL.php';
 $mysql = new MySQL();
 

@@ -30,6 +30,7 @@ if(isset($_POST['nroDocumentoEmpLogin'],$_POST['contraseñaEmpLogin'])
         if(password_verify($contraseña,$usuario['contrasena'])){
             $_SESSION["nombre"]=$usuario['nombre'];
             $_SESSION["nroDocumento"]=$usuario['numero_documento'];
+            $_SESSION["id"]=$usuario['id'];
 
             header("Location:../views/dashboard.php");
             exit();

@@ -1,6 +1,13 @@
 <?php
-require_once '../models/MySQL.php';
+    //Verificar si el usuario tiene la sesion activa
+    session_start();
+    if(!isset($_SESSION['id'])){
+        header("Location:../views/login.php");
+        $_SESSION["error"]="No has iniciado sesion";
+    }
 
+
+    require_once '../models/MySQL.php';
    $mysql = new MySQL();
    $mysql->conectar();
 
@@ -11,9 +18,12 @@ require_once '../models/MySQL.php';
 
    $mysql->desconectar();    
 
+   $nombreUsuario = $_SESSION['nombre'] ?? null;
 
 
 ?>
+
+
 
 
 
@@ -27,6 +37,9 @@ require_once '../models/MySQL.php';
 <body>
     
 <?php if(mysqli_num_rows($resultado)>0): ?>
+    <?php if ($nombreUsuario): ?>
+    <h1>Bienvenido <?= $nombreUsuario ?></h1>
+    <?php endif; ?>
     <h1>Registro de empleados</h1>
     <table border="1">
         <tr>
@@ -66,6 +79,7 @@ require_once '../models/MySQL.php';
             
     </table>
     <a href="crearEmpleado.php" ><button>Crear Empleado</button></a>
+    <a href="../controllers/logout.php"><button>Cerrar Sesion</button></a>
 
     
     

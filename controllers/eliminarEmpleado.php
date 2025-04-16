@@ -1,6 +1,7 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once '../model  s/MySQL.php';
+
+if (isset($_GET["id"]) && !empty($_GET["id"])) {
+    require_once '../models/MySQL.php';
 
     $mysql = new MySQL();
     $mysql->conectar();
@@ -14,5 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     header("refresh:3;url=../views/dashboard.php");
 }
-
+else{
+    echo "Id alterado";
+}
 ?>
