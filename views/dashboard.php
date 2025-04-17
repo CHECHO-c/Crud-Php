@@ -40,7 +40,9 @@
     <?php if ($nombreUsuario): ?>
     <h1>Bienvenido <?= $nombreUsuario ?></h1>
     <?php endif; ?>
+    <a href="../views/verificarContraseña.php"><button>Cambiar Contraseña</button></a> 
     <h1>Registro de empleados</h1>
+    
     <table border="1">
         <tr>
             <th>Id</th>
@@ -80,6 +82,7 @@
     </table>
     <a href="crearEmpleado.php" ><button>Crear Empleado</button></a>
     <a href="../controllers/logout.php"><button>Cerrar Sesion</button></a>
+    
 
     
     

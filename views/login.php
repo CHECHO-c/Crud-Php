@@ -9,6 +9,7 @@ unset($_SESSION['error'], $_SESSION['old']);
 <?php if ($error): ?>
     <p style="color: red;"><?= $error ?></p>
 <?php endif; ?>
+
 <h1>Iniciar Sesion</h1>
 <form action="../controllers/login.php" method="POST">
     <label for="">Ingresa tu numero de documento</label>
